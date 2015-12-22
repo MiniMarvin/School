@@ -1,6 +1,10 @@
 #include <unistd.h>
 #include <time.h>
 
+#ifdef __MINGW32
+	#include <windows.h>
+#endif
+
 #define ns 	*1
 #define us 	*1
 #define ms 	*1000
@@ -40,7 +44,20 @@ void shuffletArray(int* arrPtr, int arraySize){
 
 void sleepms(unsigned long int sleepTime){
 	//sleepms terminal for a time in microseconds
-	usleep(sleepTime);
+	#ifndef __MINGW32
+		usleep(sleepTime);
+	#else
+		HANDLE timer; 
+	    LARGE_INTEGER ft; 
+	
+	    ft.QuadPart = -(10*sleepTime*1000); // Convert to 100 nanosecond interval, negative value indicates relative time
+	
+	    timer = CreateWaitableTimer(NULL, TRUE, NULL); 
+	    SetWaitableTimer(timer, &ft, 0, NULL, NULL, 0); 
+	    WaitForSingleObject(timer, INFINITE); 
+	    CloseHandle(timer); 
+	#endif
+	
 }
 
 //clean the stdin

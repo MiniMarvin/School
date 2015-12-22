@@ -1,7 +1,7 @@
 #include <unistd.h>
 #include <time.h>
 
-#ifdef __MINGW32
+#ifdef _WIN32
 	#include <windows.h>
 #endif
 
@@ -13,7 +13,7 @@
 void cleanScreen(){
 	
 	
-	#ifdef __MINGW32 
+	#ifdef _WIN32 
 		system("cls");		//windows
 	#else 				
 		system("clear");	//linux
@@ -44,7 +44,7 @@ void shuffletArray(int* arrPtr, int arraySize){
 
 void sleepms(unsigned long int sleepTime){
 	//sleepms terminal for a time in microseconds
-	#ifndef __MINGW32
+	#ifndef _WIN32
 		usleep(sleepTime);
 	#else
 		HANDLE timer; 

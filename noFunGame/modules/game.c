@@ -28,7 +28,7 @@ int main(int argc, char const *argv[]){
 	}
 
 	//if windows, stop the program up to digit a key
-	#ifdef __MINGW32
+	#ifdef _WIN32
 		system("pause");
 	#endif
 	

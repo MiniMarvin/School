@@ -24,7 +24,7 @@ int showTime(){
 	int st = 0;
 	
 	//loop to make the question to the user up to he digits something valid
-	do{
+	do{ 
 		cleanScreen();
 		flush_in();
 		printf("digite o tempo de exibição das questoes (em milissegundos)\n");

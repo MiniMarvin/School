@@ -26,11 +26,15 @@ void turn(int st, int rn, int ew, int qn, char* file){
 		num0[i] = numbers[i];
 	}
 
+	printf("\n");
 	//show them in colums or in lines
 	for(i = 0; i < qn; i++){
+		//printf("%i\n", ew);
+		
 		if(ew == 0) printf("%i ", numbers[i]);
 		else printf("%i\n", numbers[i]);
 	}
+	fflush(stdout); // Will now print everything in the stdout buffer
 
 	//wait a time to the user view the numbers
 	sleepms(st ms);

@@ -1,10 +1,6 @@
 #include <unistd.h>
 #include <time.h>
 
-#ifdef _WIN32
-	#include <windows.h>
-#endif
-
 #define ns 	*1
 #define us 	*1
 #define ms 	*1000
@@ -44,18 +40,29 @@ void shuffletArray(int* arrPtr, int arraySize){
 
 void sleepms(unsigned long int sleepTime){
 	//sleepms terminal for a time in microseconds
-	#ifndef _WIN32
+	#ifndef _WIN32 //linux
+	
 		usleep(sleepTime);
-	#else
-		HANDLE timer; 
-	    LARGE_INTEGER ft; 
+		
+	#else //windows
 	
-	    ft.QuadPart = -(10*sleepTime*1000); // Convert to 100 nanosecond interval, negative value indicates relative time
-	
-	    timer = CreateWaitableTimer(NULL, TRUE, NULL); 
-	    SetWaitableTimer(timer, &ft, 0, NULL, NULL, 0); 
-	    WaitForSingleObject(timer, INFINITE); 
-	    CloseHandle(timer); 
+		float delay = (float)sleepTime/1000000.0;
+		//just executes if there's a valid value
+		if (delay > 0.0){
+        	
+        	//declarate the variables
+			float inst1=0, inst2=0;
+			
+			/*get the actial time by multiplying the time from each to clock 
+			cycle by the number of clock cycles*/
+			inst1 = (float)clock()/(float)CLOCKS_PER_SEC;
+			
+			while (inst2-inst1<delay){
+		        inst2 = (float)clock()/(float)CLOCKS_PER_SEC;
+		    }
+		    
+		}
+		
 	#endif
 	
 }

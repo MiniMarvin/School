@@ -6,7 +6,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 
-#include "../../../allegro5/examples/common.c"
+#include "common.c"
 
 /* XXX the software line drawer currently doesn't perform clipping properly */
 
@@ -22,6 +22,8 @@ ALLEGRO_BITMAP *dbuf;
 
 int last_x = -1;
 int last_y = -1;
+
+void drawcartesian(ALLEGRO_BITMAP *bitmap);
 
 
 static void fade(void)
@@ -145,8 +147,9 @@ int main(int argc, const char *argv[])
    al_set_target_bitmap(dbuf);
    al_clear_to_color(background);
    //draw_clip_rect();
-   al_draw_line(0, 10, 300, 10, white, 0);
-   al_draw_line(10, 0, 10, 300, white, 0);
+   //al_draw_line(0, 10, 300, 10, white, 0);
+   //al_draw_line(10, 0, 10, 300, white, 0);
+   drawcartesian(dbuf);
    flip();
 
    //queue = al_create_event_queue();
@@ -163,6 +166,17 @@ int main(int argc, const char *argv[])
    al_destroy_bitmap(dbuf);
 
    return 0;
+}
+
+void drawcartesian(ALLEGRO_BITMAP *bitmap){
+	al_set_target_bitmap(bitmap);
+	
+	int w = al_get_bitmap_width(bitmap);
+	int h = al_get_bitmap_height(bitmap);
+	
+	al_draw_line(20, 0, 20, h, white, 0);
+	al_draw_line(0, h-20, w, h-20, white, 0);
+
 }
 
 /* vim: set sts=3 sw=3 et: */

@@ -23,8 +23,10 @@ ALLEGRO_BITMAP *dbuf;
 int last_x = -1;
 int last_y = -1;
 
-void drawcartesian(ALLEGRO_BITMAP *bitmap);
-
+int* drawcartesian(ALLEGRO_BITMAP *bitmap);
+void drawGraphic(double* points, ALLEGRO_BITMAP *bitmap);
+int getArraySize(double* array);
+double getMax(double* array);
 
 static void fade(void)
 {
@@ -149,7 +151,15 @@ int main(int argc, const char *argv[])
    //draw_clip_rect();
    //al_draw_line(0, 10, 300, 10, white, 0);
    //al_draw_line(10, 0, 10, 300, white, 0);
-   drawcartesian(dbuf);
+
+
+   int* zero = drawcartesian(dbuf);
+   printf("\n%i,%i\n", zero[0], zero[1]);
+
+
+   double values[6] = {0,2,4,6,8,10};
+   double* points = (double*) &values;
+   //drawGraphic(points, dbuf);
    flip();
 
    //queue = al_create_event_queue();
@@ -168,15 +178,76 @@ int main(int argc, const char *argv[])
    return 0;
 }
 
-void drawcartesian(ALLEGRO_BITMAP *bitmap){
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
+//functoin that draws a cartesian graph structure
+int* drawcartesian(ALLEGRO_BITMAP *bitmap){
 	al_set_target_bitmap(bitmap);
 	
 	int w = al_get_bitmap_width(bitmap);
 	int h = al_get_bitmap_height(bitmap);
-	
+
+	static int zero[2];
+	zero[0] = 20;
+	zero[1] = h-20;
+
 	al_draw_line(20, 0, 20, h, white, 0);
 	al_draw_line(0, h-20, w, h-20, white, 0);
 
+	return zero;
+
 }
+
+//function to write a function denoted by f(point) in cartesian graphic
+void drawGraphic(double* points, ALLEGRO_BITMAP *bitmap){
+	al_set_target_bitmap(bitmap);
+
+	int* zero = drawcartesian(bitmap);
+
+	int w = al_get_bitmap_width(bitmap);
+	int h = al_get_bitmap_height(bitmap);
+
+	int size = getArraySize(points);
+	double max = getMax(points);
+
+	double stepx = w/size;
+	double stepy = h/max;
+	int i = 0;
+
+	//int prevx = zero[0];
+	//int prevy = points[0]+zero[1];
+	//int nextx = (prevx+1)*stepx;
+	//#define nextx (prevx+1)*stepx;
+	//int nexty = 
+	//#define nexty(x) points[x+1] 
+/*
+	#define x(a) (zero[0] + a)*stepx
+	#define y(a) points[a] + zero[1]
+
+	while(i < size){
+		al_draw_line(x(i), y(i), x(i+1), y(i+1), white, 0);
+		i++;
+	}
+*/
+}
+
+//get the maximum value in an array
+double getMax(double* array){
+	int i = getArraySize(array);
+	double max = 0;
+	while(i >= 0){
+		if(max < array[i]) max = array[i];
+	}
+	return max;
+}
+
+//get the size from an array
+int getArraySize(double* array){
+	return (int) sizeof(array)/sizeof(int);
+}
+
 
 /* vim: set sts=3 sw=3 et: */

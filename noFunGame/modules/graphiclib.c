@@ -1,5 +1,8 @@
 
-
+/**
+ * @brief Start allegro
+ * @details Start allegro lib addons that will be necessary in the script
+ */
 void allegroStart(){
 
 	if (!al_init()) {
@@ -11,7 +14,13 @@ void allegroStart(){
 	}
 }
 
-
+/**
+ * @brief plot a bitmap in a windows
+ * @details plot a received bitmap in a displaying windows, just can be used in GUI modes
+ * 
+ * @param dbuf the bitmap which will be ploted
+ * @param display the window where the bitmap will be displayed
+ */
 void flip(ALLEGRO_BITMAP* dbuf, ALLEGRO_DISPLAY* display){
 
    al_set_target_backbuffer(display);
@@ -21,6 +30,14 @@ void flip(ALLEGRO_BITMAP* dbuf, ALLEGRO_DISPLAY* display){
 
 }
 
+/**
+ * @brief [brief description]
+ * @details [long description]
+ * 
+ * @param x [description]
+ * @param y [description]
+ * @param dbuf [description]
+ */
 void red_dot(int x, int y, ALLEGRO_BITMAP* dbuf){
 
 	al_set_target_bitmap(dbuf);

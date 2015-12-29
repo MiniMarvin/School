@@ -6,6 +6,11 @@
 #include "graphiclib.h"
 #include "common.c"
 
+/**
+ * @brief [brief description]
+ * @details [long description]
+ * @return [description]
+ */
 int main(void){
 	
 	//declare variables

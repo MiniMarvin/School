@@ -15,4 +15,10 @@
     //portable function to clean the stdin
     void flush_in();
 
+    //function to get the line from terminal
+    //\prpmt - vai ser plotado no terminal
+    //\buff - ponteiro que vai recer a string
+    //\sz - tamanho máximo para a string
+    int getLine (char *prmpt, char *buff, size_t sz);
+
 #endif

@@ -1,8 +1,7 @@
 #include "gutil.h"
 #include "filecontrol.h"
 
-//run the turn - plot the numbers and them make the asks and plot the turn result in the file
-void turn(int st, int rn, int ew, int qn, char* file){
+int* turn(int st, int ew, int qn, char* file){
 
 	srand(time(NULL));
 
@@ -37,7 +36,7 @@ void turn(int st, int rn, int ew, int qn, char* file){
 	fflush(stdout); // Will now print everything in the stdout buffer
 
 	//wait a time to the user view the numbers
-	sleepms(st ms);
+	sleepms(st*1000);
 
 	cleanScreen();
 
@@ -64,4 +63,6 @@ void turn(int st, int rn, int ew, int qn, char* file){
 	
 	//write in the file the results of the round
 	writeInFile(answers, qn, file);
+
+	return answers;
 }

@@ -3,9 +3,15 @@ org 00h
 SETUP:
     mov R2, #80h
     mov R3, #0Ah
+    mov R4, #0Ah
+    
+RESET:
+    mov R2, #80h
+    mov R3, #0Ah
     
 BEGIN:
     djnz R3, NEXT; olha o range definido em R3
+    djnz R4, RESET
     sjmp $; finaliza o programa
     NEXT:
         mov R0, @R2

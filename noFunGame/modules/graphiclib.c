@@ -1,5 +1,8 @@
 
-
+/**
+ * @brief Start allegro
+ * @details Start allegro lib addons that will be necessary in the script
+ */
 void allegroStart(){
 
 	if (!al_init()) {
@@ -11,7 +14,13 @@ void allegroStart(){
 	}
 }
 
-
+/**
+ * @brief plot a bitmap in a windows
+ * @details plot a received bitmap in a displaying windows, just can be used in GUI modes
+ * 
+ * @param dbuf the bitmap which will be ploted
+ * @param display the window where the bitmap will be displayed
+ */
 void flip(ALLEGRO_BITMAP* dbuf, ALLEGRO_DISPLAY* display){
 
    al_set_target_backbuffer(display);
@@ -21,6 +30,14 @@ void flip(ALLEGRO_BITMAP* dbuf, ALLEGRO_DISPLAY* display){
 
 }
 
+/**
+ * @brief puts a red dot in the determined point of a bitmap
+ * @details places a red dot in the position specified by (x,y) in the bitmap
+ * 
+ * @param x x axys
+ * @param y y axys
+ * @param dbuf bitmap where the dot will be placed
+ */
 void red_dot(int x, int y, ALLEGRO_BITMAP* dbuf){
 
 	al_set_target_bitmap(dbuf);
@@ -28,7 +45,15 @@ void red_dot(int x, int y, ALLEGRO_BITMAP* dbuf){
 
 }
 
-//functoin that draws a cartesian graph structure
+/**
+ * @brief create a cartesian graphic structure in a bitmap
+ * @details draw two lines to make the axys from the cartesian graphic in the passed bitmap
+ * 
+ * @param bitmap the bitmap where the cartesian axys will be added
+ * @param cor the color of the axys
+ * 
+ * @return an array saying the zeros from the graphic (x0,y0) in pixels of this bitmap
+ */
 int* drawcartesian(ALLEGRO_BITMAP *bitmap, ALLEGRO_COLOR cor){
 	al_set_target_bitmap(bitmap);
 	
@@ -46,7 +71,15 @@ int* drawcartesian(ALLEGRO_BITMAP *bitmap, ALLEGRO_COLOR cor){
 
 }
 
-//function to write a function denoted by f(point) in cartesian graphic
+/**
+ * @brief draws a graphic over an cartesian structure
+ * @details draws in a bitmap a graphic from one f(x) represented for an array
+ * 
+ * @param points the array that have the points that will be placed in the graphic
+ * @param bitmap the bitmap where the graphic will be drawn
+ * @param arraySize the quantity of points that have to be drawn
+ * @param cor the color of the graphic
+ */
 void drawGraphic(double* points, ALLEGRO_BITMAP *bitmap, int arraySize, ALLEGRO_COLOR cor){
 
 	int i = 0;
@@ -80,14 +113,23 @@ void drawGraphic(double* points, ALLEGRO_BITMAP *bitmap, int arraySize, ALLEGRO_
 }
 
 //get the maximum value in an array
+/**
+ * @brief get the max value inside an array
+ * @details get the biggest value inside an one dimension array
+ * 
+ * @param points the pointer to the array
+ * @param size the size of the array(avoid any kind of segmentation fault)
+ * 
+ * @return the max value
+ */
 int getMax(double* points, int size){
 
 	int max = 0;
-   int i = 0;
+	int i = 0;
 
-   for(i = 0; i < size; i++){
-      if(max < points[i]) max = points[i];
-   }
+	for(i = 0; i < size; i++){
+		if(max < points[i]) max = points[i];
+	}
 
 	return max;
 }

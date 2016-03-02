@@ -1,14 +1,19 @@
 #include "gutil.h"
 #define maxValue 20
 
-//define the number of questions
+
+/**
+ * @brief define the number of questions that will be made to the user
+ * @details make a question to the user asking for this value
+ * @return the number of questions
+ */
 int qNum(){
 	int qn = 0;
 	cleanScreen();
-	//debug from flush_in function -when there's nothing in stdin-
+	///debug from flush_in function -when there's nothing in stdin-
 	printf("PRESS ANY KEY TO CONTINUE");
 	
-	//loop to make the question to the user up to he digits something valid
+	///loop to make the question to the user up to he digits something valid
 	do{
 		flush_in();
 		cleanScreen();
@@ -19,11 +24,15 @@ int qNum(){
 	return qn;
 }
 
-//get the time exibition in screen
+/**
+ * @brief get the time exibition in screen from user terminal
+ * @details make a question to the user asking for a value in miliseconds, just works with positive values
+ * @return the question's exibition time
+ */
 int showTime(){
 	int st = 0;
 	
-	//loop to make the question to the user up to he digits something valid
+	///loop to make the question to the user up to he digits something valid
 	do{ 
 		cleanScreen();
 		flush_in();
@@ -34,11 +43,16 @@ int showTime(){
 	return st;
 }
 
-//get the turn num
+/**
+ * @brief get the number of turns in wich the user will be avalied
+ * @details in every turn is shown a serie of numbers, the number of turns delimits the 
+ * 			amount of times it will occur
+ * @return the number of turns in wich the user will be exposed
+ */
 int turnNum(){
 	int rn = 0;
 
-	//loop to make the question to the user up to he digits something valid
+	///loop to make the question to the user up to he digits something valid
 	do{
 		cleanScreen();
 		flush_in();
@@ -49,11 +63,21 @@ int turnNum(){
 	return rn;
 }
 
-//define the exibition way
+/**
+ * @brief define the model of exibition of every turn
+ * @details the model of exibition delimits if the numbers will be shown in colum or in line
+ * 0:
+ * num1 num2 num3
+ * 1:
+ * num1
+ * num2
+ * num3
+ * @return the way in wich the numbers will be shown
+ */
 unsigned int model(){
 	unsigned int model = 2;
 	
-	//loop to make the question to the user up to he digits something valid
+	///loop to make the question to the user up to he digits something valid
 	do{
 		cleanScreen();
 		flush_in();

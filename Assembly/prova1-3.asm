@@ -135,14 +135,16 @@ SET_DISP: ; Multiplexacao do display
 	mov TL0, #LOW(0FFFFh - 90)
 	
 	cjne A, #01, JUST_NEXT
-		mov P1, #00000001b
+		mov P1, #00000000b
 		mov P0, @R0
+		mov P1, #00000001b
 		mov A, #00
 		setb TCON.4
 	reti
 	JUST_NEXT:
-		mov P1, #00000010b
+		mov P1, #00000000b
 		mov P0, @R1
+		mov P1, #00000010b
 		mov A, #01
 		setb TCON.4
 	reti

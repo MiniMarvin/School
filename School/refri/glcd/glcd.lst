@@ -1,0 +1,1006 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 3.3.0 #8604 (Dec 30 2013) (Linux)
+                              4 ; This file was generated Wed Jun  8 11:57:16 2016
+                              5 ;--------------------------------------------------------
+                              6 	.module glcd
+                              7 	.optsdcc -mmcs51 --model-large
+                              8 	
+                              9 ;--------------------------------------------------------
+                             10 ; Public variables in this module
+                             11 ;--------------------------------------------------------
+                             12 	.globl _main
+                             13 	.globl _glcd_set_pixel
+                             14 	.globl _glcd_init
+                             15 	.globl _glcd_write_cmd
+                             16 	.globl _glcd_write_data
+                             17 	.globl _delay
+                             18 	.globl __sdcc_external_startup
+                             19 	.globl _TF2
+                             20 	.globl _EXF2
+                             21 	.globl _RCLK
+                             22 	.globl _TCLK
+                             23 	.globl _EXEN2
+                             24 	.globl _TR2
+                             25 	.globl _C_T2
+                             26 	.globl _CP_RL2
+                             27 	.globl _T2CON_7
+                             28 	.globl _T2CON_6
+                             29 	.globl _T2CON_5
+                             30 	.globl _T2CON_4
+                             31 	.globl _T2CON_3
+                             32 	.globl _T2CON_2
+                             33 	.globl _T2CON_1
+                             34 	.globl _T2CON_0
+                             35 	.globl _PT2
+                             36 	.globl _ET2
+                             37 	.globl _CY
+                             38 	.globl _AC
+                             39 	.globl _F0
+                             40 	.globl _RS1
+                             41 	.globl _RS0
+                             42 	.globl _OV
+                             43 	.globl _F1
+                             44 	.globl _P
+                             45 	.globl _PS
+                             46 	.globl _PT1
+                             47 	.globl _PX1
+                             48 	.globl _PT0
+                             49 	.globl _PX0
+                             50 	.globl _RD
+                             51 	.globl _WR
+                             52 	.globl _T1
+                             53 	.globl _T0
+                             54 	.globl _INT1
+                             55 	.globl _INT0
+                             56 	.globl _TXD
+                             57 	.globl _RXD
+                             58 	.globl _P3_7
+                             59 	.globl _P3_6
+                             60 	.globl _P3_5
+                             61 	.globl _P3_4
+                             62 	.globl _P3_3
+                             63 	.globl _P3_2
+                             64 	.globl _P3_1
+                             65 	.globl _P3_0
+                             66 	.globl _EA
+                             67 	.globl _ES
+                             68 	.globl _ET1
+                             69 	.globl _EX1
+                             70 	.globl _ET0
+                             71 	.globl _EX0
+                             72 	.globl _P2_7
+                             73 	.globl _P2_6
+                             74 	.globl _P2_5
+                             75 	.globl _P2_4
+                             76 	.globl _P2_3
+                             77 	.globl _P2_2
+                             78 	.globl _P2_1
+                             79 	.globl _P2_0
+                             80 	.globl _SM0
+                             81 	.globl _SM1
+                             82 	.globl _SM2
+                             83 	.globl _REN
+                             84 	.globl _TB8
+                             85 	.globl _RB8
+                             86 	.globl _TI
+                             87 	.globl _RI
+                             88 	.globl _P1_7
+                             89 	.globl _P1_6
+                             90 	.globl _P1_5
+                             91 	.globl _P1_4
+                             92 	.globl _P1_3
+                             93 	.globl _P1_2
+                             94 	.globl _P1_1
+                             95 	.globl _P1_0
+                             96 	.globl _TF1
+                             97 	.globl _TR1
+                             98 	.globl _TF0
+                             99 	.globl _TR0
+                            100 	.globl _IE1
+                            101 	.globl _IT1
+                            102 	.globl _IE0
+                            103 	.globl _IT0
+                            104 	.globl _P0_7
+                            105 	.globl _P0_6
+                            106 	.globl _P0_5
+                            107 	.globl _P0_4
+                            108 	.globl _P0_3
+                            109 	.globl _P0_2
+                            110 	.globl _P0_1
+                            111 	.globl _P0_0
+                            112 	.globl _P4
+                            113 	.globl _TH2
+                            114 	.globl _TL2
+                            115 	.globl _RCAP2H
+                            116 	.globl _RCAP2L
+                            117 	.globl _T2CON
+                            118 	.globl _B
+                            119 	.globl _ACC
+                            120 	.globl _PSW
+                            121 	.globl _IP
+                            122 	.globl _P3
+                            123 	.globl _IE
+                            124 	.globl _P2
+                            125 	.globl _SBUF
+                            126 	.globl _SCON
+                            127 	.globl _P1
+                            128 	.globl _TH1
+                            129 	.globl _TH0
+                            130 	.globl _TL1
+                            131 	.globl _TL0
+                            132 	.globl _TMOD
+                            133 	.globl _TCON
+                            134 	.globl _PCON
+                            135 	.globl _DPH
+                            136 	.globl _DPL
+                            137 	.globl _SP
+                            138 	.globl _P0
+                            139 	.globl _glcd_set_pixel_PARM_3
+                            140 	.globl _glcd_set_pixel_PARM_2
+                            141 ;--------------------------------------------------------
+                            142 ; special function registers
+                            143 ;--------------------------------------------------------
+                            144 	.area RSEG    (ABS,DATA)
+   0000                     145 	.org 0x0000
+                     0080   146 _P0	=	0x0080
+                     0081   147 _SP	=	0x0081
+                     0082   148 _DPL	=	0x0082
+                     0083   149 _DPH	=	0x0083
+                     0087   150 _PCON	=	0x0087
+                     0088   151 _TCON	=	0x0088
+                     0089   152 _TMOD	=	0x0089
+                     008A   153 _TL0	=	0x008a
+                     008B   154 _TL1	=	0x008b
+                     008C   155 _TH0	=	0x008c
+                     008D   156 _TH1	=	0x008d
+                     0090   157 _P1	=	0x0090
+                     0098   158 _SCON	=	0x0098
+                     0099   159 _SBUF	=	0x0099
+                     00A0   160 _P2	=	0x00a0
+                     00A8   161 _IE	=	0x00a8
+                     00B0   162 _P3	=	0x00b0
+                     00B8   163 _IP	=	0x00b8
+                     00D0   164 _PSW	=	0x00d0
+                     00E0   165 _ACC	=	0x00e0
+                     00F0   166 _B	=	0x00f0
+                     00C8   167 _T2CON	=	0x00c8
+                     00CA   168 _RCAP2L	=	0x00ca
+                     00CB   169 _RCAP2H	=	0x00cb
+                     00CC   170 _TL2	=	0x00cc
+                     00CD   171 _TH2	=	0x00cd
+                     00A1   172 _P4	=	0x00a1
+                     008E   173 __sdcc_external_startup_AUXR_1_1	=	0x008e
+                            174 ;--------------------------------------------------------
+                            175 ; special function bits
+                            176 ;--------------------------------------------------------
+                            177 	.area RSEG    (ABS,DATA)
+   0000                     178 	.org 0x0000
+                     0080   179 _P0_0	=	0x0080
+                     0081   180 _P0_1	=	0x0081
+                     0082   181 _P0_2	=	0x0082
+                     0083   182 _P0_3	=	0x0083
+                     0084   183 _P0_4	=	0x0084
+                     0085   184 _P0_5	=	0x0085
+                     0086   185 _P0_6	=	0x0086
+                     0087   186 _P0_7	=	0x0087
+                     0088   187 _IT0	=	0x0088
+                     0089   188 _IE0	=	0x0089
+                     008A   189 _IT1	=	0x008a
+                     008B   190 _IE1	=	0x008b
+                     008C   191 _TR0	=	0x008c
+                     008D   192 _TF0	=	0x008d
+                     008E   193 _TR1	=	0x008e
+                     008F   194 _TF1	=	0x008f
+                     0090   195 _P1_0	=	0x0090
+                     0091   196 _P1_1	=	0x0091
+                     0092   197 _P1_2	=	0x0092
+                     0093   198 _P1_3	=	0x0093
+                     0094   199 _P1_4	=	0x0094
+                     0095   200 _P1_5	=	0x0095
+                     0096   201 _P1_6	=	0x0096
+                     0097   202 _P1_7	=	0x0097
+                     0098   203 _RI	=	0x0098
+                     0099   204 _TI	=	0x0099
+                     009A   205 _RB8	=	0x009a
+                     009B   206 _TB8	=	0x009b
+                     009C   207 _REN	=	0x009c
+                     009D   208 _SM2	=	0x009d
+                     009E   209 _SM1	=	0x009e
+                     009F   210 _SM0	=	0x009f
+                     00A0   211 _P2_0	=	0x00a0
+                     00A1   212 _P2_1	=	0x00a1
+                     00A2   213 _P2_2	=	0x00a2
+                     00A3   214 _P2_3	=	0x00a3
+                     00A4   215 _P2_4	=	0x00a4
+                     00A5   216 _P2_5	=	0x00a5
+                     00A6   217 _P2_6	=	0x00a6
+                     00A7   218 _P2_7	=	0x00a7
+                     00A8   219 _EX0	=	0x00a8
+                     00A9   220 _ET0	=	0x00a9
+                     00AA   221 _EX1	=	0x00aa
+                     00AB   222 _ET1	=	0x00ab
+                     00AC   223 _ES	=	0x00ac
+                     00AF   224 _EA	=	0x00af
+                     00B0   225 _P3_0	=	0x00b0
+                     00B1   226 _P3_1	=	0x00b1
+                     00B2   227 _P3_2	=	0x00b2
+                     00B3   228 _P3_3	=	0x00b3
+                     00B4   229 _P3_4	=	0x00b4
+                     00B5   230 _P3_5	=	0x00b5
+                     00B6   231 _P3_6	=	0x00b6
+                     00B7   232 _P3_7	=	0x00b7
+                     00B0   233 _RXD	=	0x00b0
+                     00B1   234 _TXD	=	0x00b1
+                     00B2   235 _INT0	=	0x00b2
+                     00B3   236 _INT1	=	0x00b3
+                     00B4   237 _T0	=	0x00b4
+                     00B5   238 _T1	=	0x00b5
+                     00B6   239 _WR	=	0x00b6
+                     00B7   240 _RD	=	0x00b7
+                     00B8   241 _PX0	=	0x00b8
+                     00B9   242 _PT0	=	0x00b9
+                     00BA   243 _PX1	=	0x00ba
+                     00BB   244 _PT1	=	0x00bb
+                     00BC   245 _PS	=	0x00bc
+                     00D0   246 _P	=	0x00d0
+                     00D1   247 _F1	=	0x00d1
+                     00D2   248 _OV	=	0x00d2
+                     00D3   249 _RS0	=	0x00d3
+                     00D4   250 _RS1	=	0x00d4
+                     00D5   251 _F0	=	0x00d5
+                     00D6   252 _AC	=	0x00d6
+                     00D7   253 _CY	=	0x00d7
+                     00AD   254 _ET2	=	0x00ad
+                     00BD   255 _PT2	=	0x00bd
+                     00C8   256 _T2CON_0	=	0x00c8
+                     00C9   257 _T2CON_1	=	0x00c9
+                     00CA   258 _T2CON_2	=	0x00ca
+                     00CB   259 _T2CON_3	=	0x00cb
+                     00CC   260 _T2CON_4	=	0x00cc
+                     00CD   261 _T2CON_5	=	0x00cd
+                     00CE   262 _T2CON_6	=	0x00ce
+                     00CF   263 _T2CON_7	=	0x00cf
+                     00C8   264 _CP_RL2	=	0x00c8
+                     00C9   265 _C_T2	=	0x00c9
+                     00CA   266 _TR2	=	0x00ca
+                     00CB   267 _EXEN2	=	0x00cb
+                     00CC   268 _TCLK	=	0x00cc
+                     00CD   269 _RCLK	=	0x00cd
+                     00CE   270 _EXF2	=	0x00ce
+                     00CF   271 _TF2	=	0x00cf
+                            272 ;--------------------------------------------------------
+                            273 ; overlayable register banks
+                            274 ;--------------------------------------------------------
+                            275 	.area REG_BANK_0	(REL,OVR,DATA)
+   0000                     276 	.ds 8
+                            277 ;--------------------------------------------------------
+                            278 ; internal ram data
+                            279 ;--------------------------------------------------------
+                            280 	.area DSEG    (DATA)
+   0000                     281 _glcd_set_pixel_sloc0_1_0:
+   0000                     282 	.ds 2
+                            283 ;--------------------------------------------------------
+                            284 ; overlayable items in internal ram 
+                            285 ;--------------------------------------------------------
+                            286 ;--------------------------------------------------------
+                            287 ; Stack segment in internal ram 
+                            288 ;--------------------------------------------------------
+                            289 	.area	SSEG	(DATA)
+   0000                     290 __start__stack:
+   0000                     291 	.ds	1
+                            292 
+                            293 ;--------------------------------------------------------
+                            294 ; indirectly addressable internal ram data
+                            295 ;--------------------------------------------------------
+                            296 	.area ISEG    (DATA)
+                            297 ;--------------------------------------------------------
+                            298 ; absolute internal ram data
+                            299 ;--------------------------------------------------------
+                            300 	.area IABS    (ABS,DATA)
+                            301 	.area IABS    (ABS,DATA)
+                            302 ;--------------------------------------------------------
+                            303 ; bit data
+                            304 ;--------------------------------------------------------
+                            305 	.area BSEG    (BIT)
+                            306 ;--------------------------------------------------------
+                            307 ; paged external ram data
+                            308 ;--------------------------------------------------------
+                            309 	.area PSEG    (PAG,XDATA)
+                            310 ;--------------------------------------------------------
+                            311 ; external ram data
+                            312 ;--------------------------------------------------------
+                            313 	.area XSEG    (XDATA)
+   0000                     314 _gfx_buf:
+   0000                     315 	.ds 1024
+   0400                     316 _delay_x_1_2:
+   0400                     317 	.ds 2
+   0402                     318 _glcd_write_data_dat_1_4:
+   0402                     319 	.ds 1
+   0403                     320 _glcd_write_data_maskdata_1_5:
+   0403                     321 	.ds 1
+   0404                     322 _glcd_write_cmd_cmd_1_7:
+   0404                     323 	.ds 1
+   0405                     324 _glcd_write_cmd_maskdata_1_8:
+   0405                     325 	.ds 1
+   0406                     326 _glcd_set_pixel_PARM_2:
+   0406                     327 	.ds 2
+   0408                     328 _glcd_set_pixel_PARM_3:
+   0408                     329 	.ds 2
+   040A                     330 _glcd_set_pixel_x_1_12:
+   040A                     331 	.ds 2
+                            332 ;--------------------------------------------------------
+                            333 ; absolute external ram data
+                            334 ;--------------------------------------------------------
+                            335 	.area XABS    (ABS,XDATA)
+                            336 ;--------------------------------------------------------
+                            337 ; external initialized ram data
+                            338 ;--------------------------------------------------------
+                            339 	.area XISEG   (XDATA)
+                            340 	.area HOME    (CODE)
+                            341 	.area GSINIT0 (CODE)
+                            342 	.area GSINIT1 (CODE)
+                            343 	.area GSINIT2 (CODE)
+                            344 	.area GSINIT3 (CODE)
+                            345 	.area GSINIT4 (CODE)
+                            346 	.area GSINIT5 (CODE)
+                            347 	.area GSINIT  (CODE)
+                            348 	.area GSFINAL (CODE)
+                            349 	.area CSEG    (CODE)
+                            350 ;--------------------------------------------------------
+                            351 ; interrupt vector 
+                            352 ;--------------------------------------------------------
+                            353 	.area HOME    (CODE)
+   0000                     354 __interrupt_vect:
+   0000 02r00r00      [24]  355 	ljmp	__sdcc_gsinit_startup
+                            356 ;--------------------------------------------------------
+                            357 ; global & static initialisations
+                            358 ;--------------------------------------------------------
+                            359 	.area HOME    (CODE)
+                            360 	.area GSINIT  (CODE)
+                            361 	.area GSFINAL (CODE)
+                            362 	.area GSINIT  (CODE)
+                            363 	.globl __sdcc_gsinit_startup
+                            364 	.globl __sdcc_program_startup
+                            365 	.globl __start__stack
+                            366 	.globl __mcs51_genXINIT
+                            367 	.globl __mcs51_genXRAMCLEAR
+                            368 	.globl __mcs51_genRAMCLEAR
+                            369 	.area GSFINAL (CODE)
+   0000 02r00r03      [24]  370 	ljmp	__sdcc_program_startup
+                            371 ;--------------------------------------------------------
+                            372 ; Home
+                            373 ;--------------------------------------------------------
+                            374 	.area HOME    (CODE)
+                            375 	.area HOME    (CODE)
+   0003                     376 __sdcc_program_startup:
+   0003 02r02rBC      [24]  377 	ljmp	_main
+                            378 ;	return from main will return to caller
+                            379 ;--------------------------------------------------------
+                            380 ; code
+                            381 ;--------------------------------------------------------
+                            382 	.area CSEG    (CODE)
+                            383 ;------------------------------------------------------------
+                            384 ;Allocation info for local variables in function '_sdcc_external_startup'
+                            385 ;------------------------------------------------------------
+                            386 ;AUXR                      Allocated with name '__sdcc_external_startup_AUXR_1_1'
+                            387 ;------------------------------------------------------------
+                            388 ;	glcd.c:16: int _sdcc_external_startup()
+                            389 ;	-----------------------------------------
+                            390 ;	 function _sdcc_external_startup
+                            391 ;	-----------------------------------------
+   0000                     392 __sdcc_external_startup:
+                     0007   393 	ar7 = 0x07
+                     0006   394 	ar6 = 0x06
+                     0005   395 	ar5 = 0x05
+                     0004   396 	ar4 = 0x04
+                     0003   397 	ar3 = 0x03
+                     0002   398 	ar2 = 0x02
+                     0001   399 	ar1 = 0x01
+                     0000   400 	ar0 = 0x00
+                            401 ;	glcd.c:19: AUXR = 0x0;
+   0000 75 8E 00      [24]  402 	mov	__sdcc_external_startup_AUXR_1_1,#0x00
+                            403 ;	glcd.c:21: return 0;
+   0003 90 00 00      [24]  404 	mov	dptr,#0x0000
+   0006 22            [24]  405 	ret
+                            406 ;------------------------------------------------------------
+                            407 ;Allocation info for local variables in function 'delay'
+                            408 ;------------------------------------------------------------
+                            409 ;x                         Allocated with name '_delay_x_1_2'
+                            410 ;n                         Allocated with name '_delay_n_1_3'
+                            411 ;j                         Allocated with name '_delay_j_1_3'
+                            412 ;------------------------------------------------------------
+                            413 ;	glcd.c:25: void delay(int x)
+                            414 ;	-----------------------------------------
+                            415 ;	 function delay
+                            416 ;	-----------------------------------------
+   0007                     417 _delay:
+   0007 AF 83         [24]  418 	mov	r7,dph
+   0009 E5 82         [12]  419 	mov	a,dpl
+   000B 90r04r00      [24]  420 	mov	dptr,#_delay_x_1_2
+   000E F0            [24]  421 	movx	@dptr,a
+   000F EF            [12]  422 	mov	a,r7
+   0010 A3            [24]  423 	inc	dptr
+   0011 F0            [24]  424 	movx	@dptr,a
+                            425 ;	glcd.c:28: for(n = 0; n < x; n++)
+   0012 90r04r00      [24]  426 	mov	dptr,#_delay_x_1_2
+   0015 E0            [24]  427 	movx	a,@dptr
+   0016 FE            [12]  428 	mov	r6,a
+   0017 A3            [24]  429 	inc	dptr
+   0018 E0            [24]  430 	movx	a,@dptr
+   0019 FF            [12]  431 	mov	r7,a
+   001A 7C 00         [12]  432 	mov	r4,#0x00
+   001C 7D 00         [12]  433 	mov	r5,#0x00
+   001E                     434 00107$:
+   001E C3            [12]  435 	clr	c
+   001F EC            [12]  436 	mov	a,r4
+   0020 9E            [12]  437 	subb	a,r6
+   0021 ED            [12]  438 	mov	a,r5
+   0022 64 80         [12]  439 	xrl	a,#0x80
+   0024 8F F0         [24]  440 	mov	b,r7
+   0026 63 F0 80      [24]  441 	xrl	b,#0x80
+   0029 95 F0         [12]  442 	subb	a,b
+   002B 50 14         [24]  443 	jnc	00109$
+                            444 ;	glcd.c:29: for(j = 0; j <= 50; j++);
+   002D 7A 33         [12]  445 	mov	r2,#0x33
+   002F 7B 00         [12]  446 	mov	r3,#0x00
+   0031                     447 00105$:
+   0031 1A            [12]  448 	dec	r2
+   0032 BA FF 01      [24]  449 	cjne	r2,#0xFF,00126$
+   0035 1B            [12]  450 	dec	r3
+   0036                     451 00126$:
+   0036 EA            [12]  452 	mov	a,r2
+   0037 4B            [12]  453 	orl	a,r3
+   0038 70 F7         [24]  454 	jnz	00105$
+                            455 ;	glcd.c:28: for(n = 0; n < x; n++)
+   003A 0C            [12]  456 	inc	r4
+   003B BC 00 E0      [24]  457 	cjne	r4,#0x00,00107$
+   003E 0D            [12]  458 	inc	r5
+   003F 80 DD         [24]  459 	sjmp	00107$
+   0041                     460 00109$:
+   0041 22            [24]  461 	ret
+                            462 ;------------------------------------------------------------
+                            463 ;Allocation info for local variables in function 'glcd_write_data'
+                            464 ;------------------------------------------------------------
+                            465 ;dat                       Allocated with name '_glcd_write_data_dat_1_4'
+                            466 ;maskdata                  Allocated with name '_glcd_write_data_maskdata_1_5'
+                            467 ;------------------------------------------------------------
+                            468 ;	glcd.c:33: void glcd_write_data(unsigned char dat)
+                            469 ;	-----------------------------------------
+                            470 ;	 function glcd_write_data
+                            471 ;	-----------------------------------------
+   0042                     472 _glcd_write_data:
+   0042 E5 82         [12]  473 	mov	a,dpl
+   0044 90r04r02      [24]  474 	mov	dptr,#_glcd_write_data_dat_1_4
+   0047 F0            [24]  475 	movx	@dptr,a
+                            476 ;	glcd.c:35: unsigned char maskdata = 0x80;
+   0048 90r04r03      [24]  477 	mov	dptr,#_glcd_write_data_maskdata_1_5
+   004B 74 80         [12]  478 	mov	a,#0x80
+   004D F0            [24]  479 	movx	@dptr,a
+                            480 ;	glcd.c:37: LCD_CS = 0;
+   004E C2 A0         [12]  481 	clr	_P2_0
+                            482 ;	glcd.c:38: LCD_RS = 1;
+   0050 D2 A2         [12]  483 	setb	_P2_2
+                            484 ;	glcd.c:40: while (maskdata) {
+   0052 90r04r02      [24]  485 	mov	dptr,#_glcd_write_data_dat_1_4
+   0055 E0            [24]  486 	movx	a,@dptr
+   0056 FF            [12]  487 	mov	r7,a
+   0057                     488 00104$:
+   0057 90r04r03      [24]  489 	mov	dptr,#_glcd_write_data_maskdata_1_5
+   005A E0            [24]  490 	movx	a,@dptr
+   005B FE            [12]  491 	mov	r6,a
+   005C 60 30         [24]  492 	jz	00106$
+                            493 ;	glcd.c:41: P4 = P4 & ~LCD_SCL;
+   005E AD A1         [24]  494 	mov	r5,_P4
+   0060 74 FE         [12]  495 	mov	a,#0xFE
+   0062 5D            [12]  496 	anl	a,r5
+   0063 F5 A1         [12]  497 	mov	_P4,a
+                            498 ;	glcd.c:43: if (dat & maskdata)
+   0065 EE            [12]  499 	mov	a,r6
+   0066 5F            [12]  500 	anl	a,r7
+   0067 60 05         [24]  501 	jz	00102$
+                            502 ;	glcd.c:44: P4 = P4 | LCD_SDA;
+   0069 43 A1 04      [24]  503 	orl	_P4,#0x04
+   006C 80 07         [24]  504 	sjmp	00103$
+   006E                     505 00102$:
+                            506 ;	glcd.c:46: P4 = P4 & ~LCD_SDA;
+   006E AE A1         [24]  507 	mov	r6,_P4
+   0070 74 FB         [12]  508 	mov	a,#0xFB
+   0072 5E            [12]  509 	anl	a,r6
+   0073 F5 A1         [12]  510 	mov	_P4,a
+   0075                     511 00103$:
+                            512 ;	glcd.c:48: maskdata >>= 1;
+   0075 90r04r03      [24]  513 	mov	dptr,#_glcd_write_data_maskdata_1_5
+   0078 E0            [24]  514 	movx	a,@dptr
+   0079 C3            [12]  515 	clr	c
+   007A 13            [12]  516 	rrc	a
+   007B 90r04r03      [24]  517 	mov	dptr,#_glcd_write_data_maskdata_1_5
+   007E F0            [24]  518 	movx	@dptr,a
+                            519 ;	glcd.c:49: delay(200);
+   007F 90 00 C8      [24]  520 	mov	dptr,#0x00C8
+   0082 C0 07         [24]  521 	push	ar7
+   0084 12r00r07      [24]  522 	lcall	_delay
+   0087 D0 07         [24]  523 	pop	ar7
+                            524 ;	glcd.c:50: P4 = P4 | LCD_SCL;
+   0089 43 A1 01      [24]  525 	orl	_P4,#0x01
+   008C 80 C9         [24]  526 	sjmp	00104$
+   008E                     527 00106$:
+                            528 ;	glcd.c:53: LCD_CS = 1;
+   008E D2 A0         [12]  529 	setb	_P2_0
+   0090 22            [24]  530 	ret
+                            531 ;------------------------------------------------------------
+                            532 ;Allocation info for local variables in function 'glcd_write_cmd'
+                            533 ;------------------------------------------------------------
+                            534 ;cmd                       Allocated with name '_glcd_write_cmd_cmd_1_7'
+                            535 ;maskdata                  Allocated with name '_glcd_write_cmd_maskdata_1_8'
+                            536 ;------------------------------------------------------------
+                            537 ;	glcd.c:57: void glcd_write_cmd(unsigned char cmd)
+                            538 ;	-----------------------------------------
+                            539 ;	 function glcd_write_cmd
+                            540 ;	-----------------------------------------
+   0091                     541 _glcd_write_cmd:
+   0091 E5 82         [12]  542 	mov	a,dpl
+   0093 90r04r04      [24]  543 	mov	dptr,#_glcd_write_cmd_cmd_1_7
+   0096 F0            [24]  544 	movx	@dptr,a
+                            545 ;	glcd.c:59: unsigned char maskdata = 0x80;
+   0097 90r04r05      [24]  546 	mov	dptr,#_glcd_write_cmd_maskdata_1_8
+   009A 74 80         [12]  547 	mov	a,#0x80
+   009C F0            [24]  548 	movx	@dptr,a
+                            549 ;	glcd.c:61: LCD_RS = 0;
+   009D C2 A2         [12]  550 	clr	_P2_2
+                            551 ;	glcd.c:62: LCD_CS = 0;
+   009F C2 A0         [12]  552 	clr	_P2_0
+                            553 ;	glcd.c:64: while (maskdata) {
+   00A1 90r04r04      [24]  554 	mov	dptr,#_glcd_write_cmd_cmd_1_7
+   00A4 E0            [24]  555 	movx	a,@dptr
+   00A5 FF            [12]  556 	mov	r7,a
+   00A6                     557 00104$:
+   00A6 90r04r05      [24]  558 	mov	dptr,#_glcd_write_cmd_maskdata_1_8
+   00A9 E0            [24]  559 	movx	a,@dptr
+   00AA FE            [12]  560 	mov	r6,a
+   00AB 60 30         [24]  561 	jz	00106$
+                            562 ;	glcd.c:66: P4 = P4 &  ~LCD_SCL;
+   00AD AD A1         [24]  563 	mov	r5,_P4
+   00AF 74 FE         [12]  564 	mov	a,#0xFE
+   00B1 5D            [12]  565 	anl	a,r5
+   00B2 F5 A1         [12]  566 	mov	_P4,a
+                            567 ;	glcd.c:68: if (cmd & maskdata)
+   00B4 EE            [12]  568 	mov	a,r6
+   00B5 5F            [12]  569 	anl	a,r7
+   00B6 60 05         [24]  570 	jz	00102$
+                            571 ;	glcd.c:69: P4 = P4 | LCD_SDA;
+   00B8 43 A1 04      [24]  572 	orl	_P4,#0x04
+   00BB 80 07         [24]  573 	sjmp	00103$
+   00BD                     574 00102$:
+                            575 ;	glcd.c:71: P4 = P4 & ~LCD_SDA;
+   00BD AE A1         [24]  576 	mov	r6,_P4
+   00BF 74 FB         [12]  577 	mov	a,#0xFB
+   00C1 5E            [12]  578 	anl	a,r6
+   00C2 F5 A1         [12]  579 	mov	_P4,a
+   00C4                     580 00103$:
+                            581 ;	glcd.c:73: maskdata >>= 1;
+   00C4 90r04r05      [24]  582 	mov	dptr,#_glcd_write_cmd_maskdata_1_8
+   00C7 E0            [24]  583 	movx	a,@dptr
+   00C8 C3            [12]  584 	clr	c
+   00C9 13            [12]  585 	rrc	a
+   00CA 90r04r05      [24]  586 	mov	dptr,#_glcd_write_cmd_maskdata_1_8
+   00CD F0            [24]  587 	movx	@dptr,a
+                            588 ;	glcd.c:74: delay(2);
+   00CE 90 00 02      [24]  589 	mov	dptr,#0x0002
+   00D1 C0 07         [24]  590 	push	ar7
+   00D3 12r00r07      [24]  591 	lcall	_delay
+   00D6 D0 07         [24]  592 	pop	ar7
+                            593 ;	glcd.c:75: P4 = P4 | LCD_SCL ;
+   00D8 43 A1 01      [24]  594 	orl	_P4,#0x01
+   00DB 80 C9         [24]  595 	sjmp	00104$
+   00DD                     596 00106$:
+                            597 ;	glcd.c:78: LCD_CS = 1;
+   00DD D2 A0         [12]  598 	setb	_P2_0
+   00DF 22            [24]  599 	ret
+                            600 ;------------------------------------------------------------
+                            601 ;Allocation info for local variables in function 'glcd_init'
+                            602 ;------------------------------------------------------------
+                            603 ;	glcd.c:81: void glcd_init(void)
+                            604 ;	-----------------------------------------
+                            605 ;	 function glcd_init
+                            606 ;	-----------------------------------------
+   00E0                     607 _glcd_init:
+                            608 ;	glcd.c:83: RST = 0;
+   00E0 C2 A5         [12]  609 	clr	_P2_5
+                            610 ;	glcd.c:84: delay(1000);
+   00E2 90 03 E8      [24]  611 	mov	dptr,#0x03E8
+   00E5 12r00r07      [24]  612 	lcall	_delay
+                            613 ;	glcd.c:85: RST = 1;
+   00E8 D2 A5         [12]  614 	setb	_P2_5
+                            615 ;	glcd.c:87: glcd_write_cmd(0xE2);            // S/W RESWT
+   00EA 75 82 E2      [24]  616 	mov	dpl,#0xE2
+   00ED 12r00r91      [24]  617 	lcall	_glcd_write_cmd
+                            618 ;	glcd.c:88: glcd_write_cmd(0xA3);            // LCD bias
+   00F0 75 82 A3      [24]  619 	mov	dpl,#0xA3
+   00F3 12r00r91      [24]  620 	lcall	_glcd_write_cmd
+                            621 ;	glcd.c:89: glcd_write_cmd(0xAF);            // Display ON
+   00F6 75 82 AF      [24]  622 	mov	dpl,#0xAF
+   00F9 12r00r91      [24]  623 	lcall	_glcd_write_cmd
+                            624 ;	glcd.c:90: glcd_write_cmd(0xA0);            // segment direction.
+   00FC 75 82 A0      [24]  625 	mov	dpl,#0xA0
+   00FF 12r00r91      [24]  626 	lcall	_glcd_write_cmd
+                            627 ;	glcd.c:91: glcd_write_cmd(0xC8);            // Common Direction.
+   0102 75 82 C8      [24]  628 	mov	dpl,#0xC8
+   0105 12r00r91      [24]  629 	lcall	_glcd_write_cmd
+                            630 ;	glcd.c:92: glcd_write_cmd(0x22);            // Regultion resistor select  //25
+   0108 75 82 22      [24]  631 	mov	dpl,#0x22
+   010B 12r00r91      [24]  632 	lcall	_glcd_write_cmd
+                            633 ;	glcd.c:93: glcd_write_cmd(0x81);            // EV Select.
+   010E 75 82 81      [24]  634 	mov	dpl,#0x81
+   0111 12r00r91      [24]  635 	lcall	_glcd_write_cmd
+                            636 ;	glcd.c:94: glcd_write_cmd(0x2f);            // Select EV value.
+   0114 75 82 2F      [24]  637 	mov	dpl,#0x2F
+   0117 12r00r91      [24]  638 	lcall	_glcd_write_cmd
+                            639 ;	glcd.c:95: glcd_write_cmd(0x2f);            // Power control
+   011A 75 82 2F      [24]  640 	mov	dpl,#0x2F
+   011D 12r00r91      [24]  641 	lcall	_glcd_write_cmd
+                            642 ;	glcd.c:98: glcd_write_cmd(0x40);            // Initial display line 40
+   0120 75 82 40      [24]  643 	mov	dpl,#0x40
+   0123 12r00r91      [24]  644 	lcall	_glcd_write_cmd
+                            645 ;	glcd.c:99: glcd_write_cmd(0xB0);            // Set page address
+   0126 75 82 B0      [24]  646 	mov	dpl,#0xB0
+   0129 12r00r91      [24]  647 	lcall	_glcd_write_cmd
+                            648 ;	glcd.c:100: glcd_write_cmd(0x10);            // Set coloumn addr  MSB
+   012C 75 82 10      [24]  649 	mov	dpl,#0x10
+   012F 12r00r91      [24]  650 	lcall	_glcd_write_cmd
+                            651 ;	glcd.c:101: glcd_write_cmd(0x00);            // Set coloumn addr LSB
+   0132 75 82 00      [24]  652 	mov	dpl,#0x00
+   0135 12r00r91      [24]  653 	lcall	_glcd_write_cmd
+                            654 ;	glcd.c:102: glcd_write_cmd(0xAF);            // Display ON
+   0138 75 82 AF      [24]  655 	mov	dpl,#0xAF
+   013B 12r00r91      [24]  656 	lcall	_glcd_write_cmd
+                            657 ;	glcd.c:103: glcd_write_cmd(0xA4);            // A5 .Normal display, all pixels OFF.
+   013E 75 82 A4      [24]  658 	mov	dpl,#0xA4
+   0141 12r00r91      [24]  659 	lcall	_glcd_write_cmd
+                            660 ;	glcd.c:104: glcd_write_cmd(0xA6);            // A7 .Normal display (Inverse Pixel)
+   0144 75 82 A6      [24]  661 	mov	dpl,#0xA6
+   0147 02r00r91      [24]  662 	ljmp	_glcd_write_cmd
+                            663 ;------------------------------------------------------------
+                            664 ;Allocation info for local variables in function 'glcd_set_pixel'
+                            665 ;------------------------------------------------------------
+                            666 ;sloc0                     Allocated with name '_glcd_set_pixel_sloc0_1_0'
+                            667 ;y                         Allocated with name '_glcd_set_pixel_PARM_2'
+                            668 ;color                     Allocated with name '_glcd_set_pixel_PARM_3'
+                            669 ;x                         Allocated with name '_glcd_set_pixel_x_1_12'
+                            670 ;page                      Allocated with name '_glcd_set_pixel_page_1_13'
+                            671 ;col                       Allocated with name '_glcd_set_pixel_col_1_13'
+                            672 ;row_in_page               Allocated with name '_glcd_set_pixel_row_in_page_1_13'
+                            673 ;------------------------------------------------------------
+                            674 ;	glcd.c:107: void glcd_set_pixel(int x, int y, int color)
+                            675 ;	-----------------------------------------
+                            676 ;	 function glcd_set_pixel
+                            677 ;	-----------------------------------------
+   014A                     678 _glcd_set_pixel:
+   014A AF 83         [24]  679 	mov	r7,dph
+   014C E5 82         [12]  680 	mov	a,dpl
+   014E 90r04r0A      [24]  681 	mov	dptr,#_glcd_set_pixel_x_1_12
+   0151 F0            [24]  682 	movx	@dptr,a
+   0152 EF            [12]  683 	mov	a,r7
+   0153 A3            [24]  684 	inc	dptr
+   0154 F0            [24]  685 	movx	@dptr,a
+                            686 ;	glcd.c:112: page = y / 8;
+   0155 90r04r06      [24]  687 	mov	dptr,#_glcd_set_pixel_PARM_2
+   0158 E0            [24]  688 	movx	a,@dptr
+   0159 FE            [12]  689 	mov	r6,a
+   015A A3            [24]  690 	inc	dptr
+   015B E0            [24]  691 	movx	a,@dptr
+   015C FF            [12]  692 	mov	r7,a
+   015D 90r00r00      [24]  693 	mov	dptr,#__divsint_PARM_2
+   0160 74 08         [12]  694 	mov	a,#0x08
+   0162 F0            [24]  695 	movx	@dptr,a
+   0163 E4            [12]  696 	clr	a
+   0164 A3            [24]  697 	inc	dptr
+   0165 F0            [24]  698 	movx	@dptr,a
+                            699 ;	glcd.c:115: glcd_write_cmd(PAGE_SEL | page);
+   0166 8E 82         [24]  700 	mov	dpl,r6
+   0168 8F 83         [24]  701 	mov	dph,r7
+   016A C0 07         [24]  702 	push	ar7
+   016C C0 06         [24]  703 	push	ar6
+   016E 12r00r00      [24]  704 	lcall	__divsint
+   0171 AC 82         [24]  705 	mov	r4,dpl
+   0173 AD 83         [24]  706 	mov	r5,dph
+   0175 74 B0         [12]  707 	mov	a,#0xB0
+   0177 4C            [12]  708 	orl	a,r4
+   0178 FA            [12]  709 	mov	r2,a
+   0179 8D 03         [24]  710 	mov	ar3,r5
+   017B 8A 82         [24]  711 	mov	dpl,r2
+   017D C0 05         [24]  712 	push	ar5
+   017F C0 04         [24]  713 	push	ar4
+   0181 12r00r91      [24]  714 	lcall	_glcd_write_cmd
+   0184 D0 04         [24]  715 	pop	ar4
+   0186 D0 05         [24]  716 	pop	ar5
+   0188 D0 06         [24]  717 	pop	ar6
+   018A D0 07         [24]  718 	pop	ar7
+                            719 ;	glcd.c:118: col = ((x & 0xF0) >> 4) | 0x10;
+   018C 90r04r0A      [24]  720 	mov	dptr,#_glcd_set_pixel_x_1_12
+   018F E0            [24]  721 	movx	a,@dptr
+   0190 F5*00         [12]  722 	mov	_glcd_set_pixel_sloc0_1_0,a
+   0192 A3            [24]  723 	inc	dptr
+   0193 E0            [24]  724 	movx	a,@dptr
+   0194 F5*01         [12]  725 	mov	(_glcd_set_pixel_sloc0_1_0 + 1),a
+   0196 74 F0         [12]  726 	mov	a,#0xF0
+   0198 55*00         [12]  727 	anl	a,_glcd_set_pixel_sloc0_1_0
+   019A F8            [12]  728 	mov	r0,a
+   019B E4            [12]  729 	clr	a
+   019C F9            [12]  730 	mov	r1,a
+   019D C4            [12]  731 	swap	a
+   019E C8            [12]  732 	xch	a,r0
+   019F C4            [12]  733 	swap	a
+   01A0 54 0F         [12]  734 	anl	a,#0x0F
+   01A2 68            [12]  735 	xrl	a,r0
+   01A3 C8            [12]  736 	xch	a,r0
+   01A4 54 0F         [12]  737 	anl	a,#0x0F
+   01A6 C8            [12]  738 	xch	a,r0
+   01A7 68            [12]  739 	xrl	a,r0
+   01A8 C8            [12]  740 	xch	a,r0
+   01A9 30 E3 02      [24]  741 	jnb	acc.3,00109$
+   01AC 44 F0         [12]  742 	orl	a,#0xF0
+   01AE                     743 00109$:
+   01AE F9            [12]  744 	mov	r1,a
+   01AF 43 00 10      [24]  745 	orl	ar0,#0x10
+                            746 ;	glcd.c:119: glcd_write_cmd(COL_SEL|col);
+   01B2 74 10         [12]  747 	mov	a,#0x10
+   01B4 48            [12]  748 	orl	a,r0
+   01B5 FA            [12]  749 	mov	r2,a
+   01B6 89 03         [24]  750 	mov	ar3,r1
+   01B8 8A 82         [24]  751 	mov	dpl,r2
+   01BA C0 07         [24]  752 	push	ar7
+   01BC C0 06         [24]  753 	push	ar6
+   01BE C0 05         [24]  754 	push	ar5
+   01C0 C0 04         [24]  755 	push	ar4
+   01C2 C0 01         [24]  756 	push	ar1
+   01C4 C0 00         [24]  757 	push	ar0
+   01C6 12r00r91      [24]  758 	lcall	_glcd_write_cmd
+                            759 ;	glcd.c:120: glcd_write_cmd(x & 0xf);
+   01C9 74 0F         [12]  760 	mov	a,#0x0F
+   01CB 55*00         [12]  761 	anl	a,_glcd_set_pixel_sloc0_1_0
+   01CD F5 82         [12]  762 	mov	dpl,a
+   01CF 12r00r91      [24]  763 	lcall	_glcd_write_cmd
+   01D2 D0 00         [24]  764 	pop	ar0
+   01D4 D0 01         [24]  765 	pop	ar1
+   01D6 D0 04         [24]  766 	pop	ar4
+   01D8 D0 05         [24]  767 	pop	ar5
+   01DA D0 06         [24]  768 	pop	ar6
+   01DC D0 07         [24]  769 	pop	ar7
+                            770 ;	glcd.c:123: row_in_page = y % 8;
+   01DE 90r00r00      [24]  771 	mov	dptr,#__modsint_PARM_2
+   01E1 74 08         [12]  772 	mov	a,#0x08
+   01E3 F0            [24]  773 	movx	@dptr,a
+   01E4 E4            [12]  774 	clr	a
+   01E5 A3            [24]  775 	inc	dptr
+   01E6 F0            [24]  776 	movx	@dptr,a
+                            777 ;	glcd.c:126: if (color)
+   01E7 8E 82         [24]  778 	mov	dpl,r6
+   01E9 8F 83         [24]  779 	mov	dph,r7
+   01EB C0 05         [24]  780 	push	ar5
+   01ED C0 04         [24]  781 	push	ar4
+   01EF C0 01         [24]  782 	push	ar1
+   01F1 C0 00         [24]  783 	push	ar0
+   01F3 12r00r00      [24]  784 	lcall	__modsint
+   01F6 AE 82         [24]  785 	mov	r6,dpl
+   01F8 AF 83         [24]  786 	mov	r7,dph
+   01FA D0 00         [24]  787 	pop	ar0
+   01FC D0 01         [24]  788 	pop	ar1
+   01FE D0 04         [24]  789 	pop	ar4
+   0200 D0 05         [24]  790 	pop	ar5
+   0202 90r04r08      [24]  791 	mov	dptr,#_glcd_set_pixel_PARM_3
+   0205 E0            [24]  792 	movx	a,@dptr
+   0206 FA            [12]  793 	mov	r2,a
+   0207 A3            [24]  794 	inc	dptr
+   0208 E0            [24]  795 	movx	a,@dptr
+   0209 FB            [12]  796 	mov	r3,a
+   020A 4A            [12]  797 	orl	a,r2
+   020B 60 4F         [24]  798 	jz	00102$
+                            799 ;	glcd.c:127: gfx_buf[page][col] |= 1 << row_in_page;
+   020D 8C 02         [24]  800 	mov	ar2,r4
+   020F ED            [12]  801 	mov	a,r5
+   0210 54 01         [12]  802 	anl	a,#0x01
+   0212 A2 E0         [12]  803 	mov	c,acc.0
+   0214 CA            [12]  804 	xch	a,r2
+   0215 13            [12]  805 	rrc	a
+   0216 CA            [12]  806 	xch	a,r2
+   0217 13            [12]  807 	rrc	a
+   0218 CA            [12]  808 	xch	a,r2
+   0219 FB            [12]  809 	mov	r3,a
+   021A EA            [12]  810 	mov	a,r2
+   021B 24r00         [12]  811 	add	a,#_gfx_buf
+   021D FA            [12]  812 	mov	r2,a
+   021E EB            [12]  813 	mov	a,r3
+   021F 34s00         [12]  814 	addc	a,#(_gfx_buf >> 8)
+   0221 FB            [12]  815 	mov	r3,a
+   0222 E8            [12]  816 	mov	a,r0
+   0223 2A            [12]  817 	add	a,r2
+   0224 FA            [12]  818 	mov	r2,a
+   0225 E9            [12]  819 	mov	a,r1
+   0226 3B            [12]  820 	addc	a,r3
+   0227 FB            [12]  821 	mov	r3,a
+   0228 C0 00         [24]  822 	push	ar0
+   022A C0 01         [24]  823 	push	ar1
+   022C 8E F0         [24]  824 	mov	b,r6
+   022E 05 F0         [12]  825 	inc	b
+   0230 75*00 01      [24]  826 	mov	_glcd_set_pixel_sloc0_1_0,#0x01
+   0233 75*01 00      [24]  827 	mov	(_glcd_set_pixel_sloc0_1_0 + 1),#0x00
+   0236 80 0B         [24]  828 	sjmp	00112$
+   0238                     829 00111$:
+   0238 E5*00         [12]  830 	mov	a,_glcd_set_pixel_sloc0_1_0
+   023A 25*00         [12]  831 	add	a,_glcd_set_pixel_sloc0_1_0
+   023C F5*00         [12]  832 	mov	_glcd_set_pixel_sloc0_1_0,a
+   023E E5*01         [12]  833 	mov	a,(_glcd_set_pixel_sloc0_1_0 + 1)
+   0240 33            [12]  834 	rlc	a
+   0241 F5*01         [12]  835 	mov	(_glcd_set_pixel_sloc0_1_0 + 1),a
+   0243                     836 00112$:
+   0243 D5 F0 F2      [24]  837 	djnz	b,00111$
+   0246 8A 82         [24]  838 	mov	dpl,r2
+   0248 8B 83         [24]  839 	mov	dph,r3
+   024A E0            [24]  840 	movx	a,@dptr
+   024B F9            [12]  841 	mov	r1,a
+   024C E5*00         [12]  842 	mov	a,_glcd_set_pixel_sloc0_1_0
+   024E 42 01         [12]  843 	orl	ar1,a
+   0250 8A 82         [24]  844 	mov	dpl,r2
+   0252 8B 83         [24]  845 	mov	dph,r3
+   0254 E9            [12]  846 	mov	a,r1
+   0255 F0            [24]  847 	movx	@dptr,a
+   0256 D0 01         [24]  848 	pop	ar1
+   0258 D0 00         [24]  849 	pop	ar0
+   025A 80 3F         [24]  850 	sjmp	00103$
+   025C                     851 00102$:
+                            852 ;	glcd.c:129: gfx_buf[page][col] &= ~(1 << row_in_page);
+   025C 8C 02         [24]  853 	mov	ar2,r4
+   025E ED            [12]  854 	mov	a,r5
+   025F 54 01         [12]  855 	anl	a,#0x01
+   0261 A2 E0         [12]  856 	mov	c,acc.0
+   0263 CA            [12]  857 	xch	a,r2
+   0264 13            [12]  858 	rrc	a
+   0265 CA            [12]  859 	xch	a,r2
+   0266 13            [12]  860 	rrc	a
+   0267 CA            [12]  861 	xch	a,r2
+   0268 FB            [12]  862 	mov	r3,a
+   0269 EA            [12]  863 	mov	a,r2
+   026A 24r00         [12]  864 	add	a,#_gfx_buf
+   026C FA            [12]  865 	mov	r2,a
+   026D EB            [12]  866 	mov	a,r3
+   026E 34s00         [12]  867 	addc	a,#(_gfx_buf >> 8)
+   0270 FB            [12]  868 	mov	r3,a
+   0271 E8            [12]  869 	mov	a,r0
+   0272 2A            [12]  870 	add	a,r2
+   0273 FA            [12]  871 	mov	r2,a
+   0274 E9            [12]  872 	mov	a,r1
+   0275 3B            [12]  873 	addc	a,r3
+   0276 FB            [12]  874 	mov	r3,a
+   0277 8E F0         [24]  875 	mov	b,r6
+   0279 05 F0         [12]  876 	inc	b
+   027B 7E 01         [12]  877 	mov	r6,#0x01
+   027D 7F 00         [12]  878 	mov	r7,#0x00
+   027F 80 06         [24]  879 	sjmp	00114$
+   0281                     880 00113$:
+   0281 EE            [12]  881 	mov	a,r6
+   0282 2E            [12]  882 	add	a,r6
+   0283 FE            [12]  883 	mov	r6,a
+   0284 EF            [12]  884 	mov	a,r7
+   0285 33            [12]  885 	rlc	a
+   0286 FF            [12]  886 	mov	r7,a
+   0287                     887 00114$:
+   0287 D5 F0 F7      [24]  888 	djnz	b,00113$
+   028A EE            [12]  889 	mov	a,r6
+   028B F4            [12]  890 	cpl	a
+   028C FE            [12]  891 	mov	r6,a
+   028D 8A 82         [24]  892 	mov	dpl,r2
+   028F 8B 83         [24]  893 	mov	dph,r3
+   0291 E0            [24]  894 	movx	a,@dptr
+   0292 FF            [12]  895 	mov	r7,a
+   0293 52 06         [12]  896 	anl	ar6,a
+   0295 8A 82         [24]  897 	mov	dpl,r2
+   0297 8B 83         [24]  898 	mov	dph,r3
+   0299 EE            [12]  899 	mov	a,r6
+   029A F0            [24]  900 	movx	@dptr,a
+   029B                     901 00103$:
+                            902 ;	glcd.c:131: glcd_write_data(gfx_buf[page][col]);
+   029B ED            [12]  903 	mov	a,r5
+   029C 54 01         [12]  904 	anl	a,#0x01
+   029E A2 E0         [12]  905 	mov	c,acc.0
+   02A0 CC            [12]  906 	xch	a,r4
+   02A1 13            [12]  907 	rrc	a
+   02A2 CC            [12]  908 	xch	a,r4
+   02A3 13            [12]  909 	rrc	a
+   02A4 CC            [12]  910 	xch	a,r4
+   02A5 FD            [12]  911 	mov	r5,a
+   02A6 EC            [12]  912 	mov	a,r4
+   02A7 24r00         [12]  913 	add	a,#_gfx_buf
+   02A9 FC            [12]  914 	mov	r4,a
+   02AA ED            [12]  915 	mov	a,r5
+   02AB 34s00         [12]  916 	addc	a,#(_gfx_buf >> 8)
+   02AD FD            [12]  917 	mov	r5,a
+   02AE E8            [12]  918 	mov	a,r0
+   02AF 2C            [12]  919 	add	a,r4
+   02B0 F5 82         [12]  920 	mov	dpl,a
+   02B2 E9            [12]  921 	mov	a,r1
+   02B3 3D            [12]  922 	addc	a,r5
+   02B4 F5 83         [12]  923 	mov	dph,a
+   02B6 E0            [24]  924 	movx	a,@dptr
+   02B7 F5 82         [12]  925 	mov	dpl,a
+   02B9 02r00r42      [24]  926 	ljmp	_glcd_write_data
+                            927 ;------------------------------------------------------------
+                            928 ;Allocation info for local variables in function 'main'
+                            929 ;------------------------------------------------------------
+                            930 ;i                         Allocated with name '_main_i_1_14'
+                            931 ;j                         Allocated with name '_main_j_1_14'
+                            932 ;------------------------------------------------------------
+                            933 ;	glcd.c:139: int main()
+                            934 ;	-----------------------------------------
+                            935 ;	 function main
+                            936 ;	-----------------------------------------
+   02BC                     937 _main:
+                            938 ;	glcd.c:143: glcd_init();
+   02BC 12r00rE0      [24]  939 	lcall	_glcd_init
+                            940 ;	glcd.c:145: for (i = 0; i < 128; i++)
+   02BF 7E 00         [12]  941 	mov	r6,#0x00
+   02C1 7F 00         [12]  942 	mov	r7,#0x00
+                            943 ;	glcd.c:146: for (j = 0; j < 64; j++)
+   02C3                     944 00109$:
+   02C3 8E 04         [24]  945 	mov	ar4,r6
+   02C5 8F 05         [24]  946 	mov	ar5,r7
+   02C7 7A 00         [12]  947 	mov	r2,#0x00
+   02C9 7B 00         [12]  948 	mov	r3,#0x00
+   02CB                     949 00103$:
+                            950 ;	glcd.c:147: glcd_set_pixel(i, j, 1);
+   02CB 90r04r06      [24]  951 	mov	dptr,#_glcd_set_pixel_PARM_2
+   02CE EA            [12]  952 	mov	a,r2
+   02CF F0            [24]  953 	movx	@dptr,a
+   02D0 EB            [12]  954 	mov	a,r3
+   02D1 A3            [24]  955 	inc	dptr
+   02D2 F0            [24]  956 	movx	@dptr,a
+   02D3 90r04r08      [24]  957 	mov	dptr,#_glcd_set_pixel_PARM_3
+   02D6 74 01         [12]  958 	mov	a,#0x01
+   02D8 F0            [24]  959 	movx	@dptr,a
+   02D9 E4            [12]  960 	clr	a
+   02DA A3            [24]  961 	inc	dptr
+   02DB F0            [24]  962 	movx	@dptr,a
+   02DC 8C 82         [24]  963 	mov	dpl,r4
+   02DE 8D 83         [24]  964 	mov	dph,r5
+   02E0 C0 05         [24]  965 	push	ar5
+   02E2 C0 04         [24]  966 	push	ar4
+   02E4 C0 03         [24]  967 	push	ar3
+   02E6 C0 02         [24]  968 	push	ar2
+   02E8 12r01r4A      [24]  969 	lcall	_glcd_set_pixel
+   02EB D0 02         [24]  970 	pop	ar2
+   02ED D0 03         [24]  971 	pop	ar3
+   02EF D0 04         [24]  972 	pop	ar4
+   02F1 D0 05         [24]  973 	pop	ar5
+                            974 ;	glcd.c:146: for (j = 0; j < 64; j++)
+   02F3 0A            [12]  975 	inc	r2
+   02F4 BA 00 01      [24]  976 	cjne	r2,#0x00,00123$
+   02F7 0B            [12]  977 	inc	r3
+   02F8                     978 00123$:
+   02F8 C3            [12]  979 	clr	c
+   02F9 EA            [12]  980 	mov	a,r2
+   02FA 94 40         [12]  981 	subb	a,#0x40
+   02FC EB            [12]  982 	mov	a,r3
+   02FD 64 80         [12]  983 	xrl	a,#0x80
+   02FF 94 80         [12]  984 	subb	a,#0x80
+   0301 40 C8         [24]  985 	jc	00103$
+                            986 ;	glcd.c:145: for (i = 0; i < 128; i++)
+   0303 74 01         [12]  987 	mov	a,#0x01
+   0305 2C            [12]  988 	add	a,r4
+   0306 FE            [12]  989 	mov	r6,a
+   0307 E4            [12]  990 	clr	a
+   0308 3D            [12]  991 	addc	a,r5
+   0309 FF            [12]  992 	mov	r7,a
+   030A C3            [12]  993 	clr	c
+   030B EE            [12]  994 	mov	a,r6
+   030C 94 80         [12]  995 	subb	a,#0x80
+   030E EF            [12]  996 	mov	a,r7
+   030F 64 80         [12]  997 	xrl	a,#0x80
+   0311 94 80         [12]  998 	subb	a,#0x80
+   0313 40 AE         [24]  999 	jc	00109$
+                           1000 ;	glcd.c:148: return 0;
+   0315 90 00 00      [24] 1001 	mov	dptr,#0x0000
+   0318 22            [24] 1002 	ret
+                           1003 	.area CSEG    (CODE)
+                           1004 	.area CONST   (CODE)
+                           1005 	.area XINIT   (CODE)
+                           1006 	.area CABS    (ABS,CODE)

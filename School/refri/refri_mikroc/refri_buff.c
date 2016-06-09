@@ -204,8 +204,7 @@ char* codetxt_to_ramtxt(const char* ctxt){
  * @param cor The color of the text.
  */
 void writeGLCDTextCenter(unsigned char* txt, unsigned short linha, unsigned short charNum, unsigned short cor) {
-	charNum/2*7
-	Glcd_Write_Text(txt, 32-charNum/2*7,linha,cor);
+	Glcd_Write_Text(txt, 32-charNum/2*5,linha,cor);
 }
 
 //......other declarations and functions

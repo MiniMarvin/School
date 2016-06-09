@@ -1,6 +1,6 @@
-sbit add_25		at	P3_0_bit;
-sbit add_50		at	P3_1_bit;
-sbit add_100	at	P3_2_bit;
+sbit add_25		at	P1_0_bit;
+sbit add_50		at	P1_1_bit;
+sbit add_100	at	P1_3_bit;
 sbit select 	at	P3_6_bit;
 sbit abortit	at	P3_7_bit;
 
@@ -11,12 +11,12 @@ unsigned short check(unsigned short pt);
 void configit();
 void selectRefri();
 void returnMoney();
-void Delay_ms(unsigned int mytime);
+
 
 //global variables
-float total = 0;
+unsigned float total = 0.0;
 unsigned short selectFlag = 0;
-
+unsigned short i;
 
 
 //GLCD things-------------------------------------------------------------//
@@ -56,25 +56,30 @@ void main() {
 			tipo1 = 0;
 			//check the buttons from adding.
 			if( check(add_25) ){
-				total += 0.25;
-				atualizaP();
+				total = total + 0.25;
+				//atualizaP();
 				while( check(add_25) );
 			}
 			if( check(add_50) ){
-				total += 0.50;
-				atualizaP();
+				total =  total + 0.50;
+				//atualizaP();
 				while( check(add_50) );
 			}
 			if( check(add_100) ){
-				total += 1.00;
-				atualizaP();
+				total = total + 1.00;
+				//atualizaP();
 				while( check(add_100) );
 			}
+
+
+                        FloatToStr(total, vartxt);
+                        Glcd_Write_Text(vartxt, 56,1,1);
+
 
 			//check if it's going to abort the operation.
 			if( check(abortit) ) {
 				returnMoney();
-				total = 0;
+				//total = 0;
 				tipo1 = 1;
 				//P2 &= 0x01111111;
 			}
@@ -94,7 +99,9 @@ void main() {
  * @param pt The bit wich we want to analyse.
  * @return The state of the bit/button.
  */
+
 unsigned short check(unsigned short pt) {
+         //P1 = 0xFF;
 	if(!pt) {
 		Delay_ms(1);
 		if(!pt) return 1;
@@ -102,18 +109,32 @@ unsigned short check(unsigned short pt) {
 	return 0;
 }
 
-
+ /*
 void atualizaP() {
+                                      // Initialize GLCD
+	//Glcd_Fill(0x00);                          // Clear GLCD
+	//Glcd_Set_Font(font5x7, 5, 7, 32);
+  	//Glcd_Write_Text(codetxt_to_ramtxt(Const_Text1), 1,0,1);
+  	//atualizaP();
+  	//Delay_ms(2);
+
+  	/*for (i = 14; i < 54; i += 10)
+  	{
+	  	Glcd_Circle(80,i, 3, 1);
+	        Glcd_Circle(90,i, 3, 1);
+		Glcd_Circle(100, i, 3, 1);
+	  	Glcd_Circle(110, i, 3, 1);
+  	}
 	Glcd_Write_Text(codetxt_to_ramtxt(Const_Text3), 1,1,1);
 	FloatToStr(total, vartxt);
 	Glcd_Write_Text(vartxt, 56,1,1);
-}
+}     */
 
 /**
  * @brief Initial config of the system.
  * @details Configure the initial bits registers and operations mode in the system.
  */
-unsigned short i;
+
 
 void configit() {
 	Glcd_Init();                              // Initialize GLCD
@@ -122,16 +143,15 @@ void configit() {
   	Glcd_Write_Text(codetxt_to_ramtxt(Const_Text1), 1,0,1);
   	atualizaP();
 
-  	for (i = 14; i < 54; i += 10)
+  	/*for (i = 14; i < 54; i += 10)
   	{
 	  	Glcd_Circle(80,i, 3, 1);
-	    Glcd_Circle(90,i, 3, 1);
+	        Glcd_Circle(90,i, 3, 1);
 		Glcd_Circle(100, i, 3, 1);
 	  	Glcd_Circle(110, i, 3, 1);
-  	}
+  	}  */
 
-	//UART1_Write_Text(codetxt_to_ramtxt(Const_Text2));
-	//UART1_Write_Text(codetxt_to_ramtxt(Const_Text3));
+
 }
 
 /**
@@ -140,12 +160,13 @@ void configit() {
  *
  * @param int the time wich will be delayed
  */
+ /*
 void Delay_ms(unsigned int mytime) {
 	unsigned int i, j;
 	for (i=0; i < mytime; i++)
 	for (j=0; j < 1275; j++); //1ms delay
 }
-
+*/
 /**
  * @brief The Refrigerant select section.
  * @details The selection section in GLCD and in the system, waiting for the refri selection.
@@ -172,6 +193,19 @@ char* codetxt_to_ramtxt(const char* ctxt){
   for(i =0; txt[i] = ctxt[i]; i++);
 
   return txt;
+}
+
+/**
+ * @brief Write text in the center of the GLCD.
+ * @details Write the text in the center of the line with a limit of 9 characters.
+ * @param txt The text that will be plotted.
+ * @param linha The line where you're going to write the text.
+ * @param charNum the number of characters in the text.
+ * @param cor The color of the text.
+ */
+void writeGLCDTextCenter(unsigned char* txt, unsigned short linha, unsigned short charNum, unsigned short cor) {
+	charNum/2*7
+	Glcd_Write_Text(txt, 32-charNum/2*7,linha,cor);
 }
 
 //......other declarations and functions

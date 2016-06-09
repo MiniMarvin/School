@@ -197,17 +197,16 @@ char* codetxt_to_ramtxt(const char* ctxt){
 
 /**
  * @brief Write text in the center of the GLCD.
- * @details Write the text in the center of the line with a limit of 9 characters.
+ * @details Write the text in the center of the line with a limit of 21 characters.
  * @param txt The text that will be plotted.
  * @param linha The line where you're going to write the text.
  * @param charNum the number of characters in the text.
  * @param cor The color of the text.
  */
-void writeGLCDTextCenter(unsigned char* txt, unsigned short linha, unsigned short charNum, unsigned short cor) {
-	if (charNum == NULL){
-		while(*(txt++) != NULL || *(txt) != "\0") charNum++;
-	}
-	Glcd_Write_Text(txt, 32-charNum/2*5,linha,cor);
+void writeGLCDTextCenter(unsigned char* txt, unsigned short linha, unsigned short cor) {
+	
+	while(txt[charNum++]);
+	Glcd_Write_Text(txt, 58 - charNum*5/2, linha, cor);
 }
 
 //......other declarations and functions
